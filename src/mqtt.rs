@@ -10,9 +10,7 @@ pub struct Sender {
 impl Sender {
     pub fn new(host: &str, port: u16, base_topic: &str) -> Sender {
         let client_id = format!("candle-remote-{:x}", rand::random::<u32>());
-        let mut mqttoptions = MqttOptions::new(client_id, host, port);
-        mqttoptions.set_keep_alive(5);
-
+        let mqttoptions = MqttOptions::new(client_id, host, port);
         let (client, connection) = Client::new(mqttoptions, 10);
 
         let thread_handle = thread::Builder::new()
