@@ -18,10 +18,14 @@ FLAGS:
     -V, --version    Prints version information
 
 OPTIONS:
-    -t, --base-topic <STRING>    MQTT Root Topic of the candle matrix to publish to [default: espMatrixCandle]
-    -p, --port <INT>             Port on which the MQTT Broker is running [default: 1883]
-    -h, --host <HOST>            Host on which the MQTT Broker is running [default: localhost]
-    -b, --burntime <INT>         Time it takes for each layer to burn down (milliseconds) [default: 1000]
+    -t, --base-topic <STRING>    MQTT Root Topic of the candle matrix to publish to
+                                 [default: espMatrixCandle]
+    -p, --port <INT>             Port on which the MQTT Broker is running [default:
+                                 1883]
+    -h, --host <HOST>            Host on which the MQTT Broker is running [default:
+                                 localhost]
+    -b, --burntime <INT>         Time it takes for each layer to burn down
+                                 (milliseconds) [default: 1000]
 ```
 
 ### Meeting
@@ -39,11 +43,16 @@ FLAGS:
     -v, --verbose    Show each time tick on stdout
 
 OPTIONS:
-    -t, --base-topic <STRING>    MQTT Root Topic of the candle matrix to publish to [default: espMatrixCandle]
-    -p, --port <INT>             Port on which the MQTT Broker is running [default: 1883]
-    -h, --host <HOST>            Host on which the MQTT Broker is running [default: localhost]
+    -t, --base-topic <STRING>    MQTT Root Topic of the candle matrix to publish to
+                                 [default: espMatrixCandle]
+    -p, --port <INT>             Port on which the MQTT Broker is running [default:
+                                 1883]
+    -h, --host <HOST>            Host on which the MQTT Broker is running [default:
+                                 localhost]
 
 ARGS:
-    <STARTTIME>    Start time of the Meeting. From then the remaining time is published.
-    <ENDTIME>      End time of the Meeting. Until then the remaining time is published.
+    <STARTTIME>    Start time of the Meeting. From then the remaining time is
+                   published.
+    <ENDTIME>      End time of the Meeting. Until then the remaining time is
+                   published.
 ```
