@@ -16,6 +16,7 @@ pub fn do_stuff(sender: &mut Sender, burntime: u64) {
         sender.send("lit", "0");
         sender.send("hue", hue);
         sender.send("sat", "100");
+        sender.send("on", "1");
         sleep(duration);
 
         for height in 0..=MAX_HEIGHT {

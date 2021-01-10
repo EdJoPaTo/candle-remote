@@ -47,6 +47,7 @@ pub fn do_stuff(
         sender.send("sat", "100");
         sender.send("height", height);
         sender.send("lit", "1");
+        sender.send("on", "1");
 
         sleep_until_second(15);
     }
