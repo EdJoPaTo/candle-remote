@@ -46,6 +46,17 @@ pub fn build() -> App<'static, 'static> {
                 .help("send MQTT messages retained"),
         )
         .subcommand(
+            SubCommand::with_name("brightness")
+                .visible_alias("bri")
+                .about("Set the candle brightness quickly")
+                .arg(
+                    Arg::with_name("brightness")
+                        .required(true)
+                        .value_name("INT")
+                        .help("Brightness from 0 to 255. Mostly 1-20 is useful when used with webcams."),
+                )
+        )
+        .subcommand(
             SubCommand::with_name("meeting")
                 .visible_aliases(&["m"])
                 .about("Show a candle burning down until the end of a meeting")

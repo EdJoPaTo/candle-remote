@@ -29,7 +29,14 @@ fn main() {
         mqtt::Sender::new(host, port, base_topic)
     };
 
-    if let Some(matches) = matches.subcommand_matches("demoloop") {
+    if let Some(matches) = matches.subcommand_matches("brightness") {
+        let brightness = matches
+            .value_of("brightness")
+            .and_then(|o| o.parse::<u8>().ok())
+            .expect("brightness could not be read from the command line");
+
+        sender.send("bri", brightness, retain);
+    } else if let Some(matches) = matches.subcommand_matches("demoloop") {
         let burntime = matches
             .value_of("burntime")
             .and_then(|s| s.parse::<u64>().ok())
