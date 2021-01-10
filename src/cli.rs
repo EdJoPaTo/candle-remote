@@ -38,6 +38,13 @@ pub fn build() -> App<'static, 'static> {
                 .help("MQTT Root Topic of the candle matrix to publish to")
                 .default_value("espMatrixCandle"),
         )
+        .arg(
+            Arg::with_name("retain")
+                .short("r")
+                .long("retain")
+                .global(true)
+                .help("send MQTT messages retained"),
+        )
         .subcommand(
             SubCommand::with_name("meeting")
                 .visible_aliases(&["m"])

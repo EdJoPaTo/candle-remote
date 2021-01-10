@@ -12,11 +12,16 @@ pub fn do_stuff(
     sender: &mut Sender,
     start: &DateTime<Local>,
     end: &DateTime<Local>,
+    retain: bool,
     verbose: bool,
 ) {
     if let Some(duration) = math::duration_until(&Local::now(), &start) {
         println!("wait till start");
         sleep(duration);
+    }
+
+    if retain {
+        sender.send("height-percentage", "", true);
     }
 
     loop {
@@ -43,11 +48,11 @@ pub fn do_stuff(
             );
         }
 
-        sender.send("hue", hue);
-        sender.send("sat", "100");
-        sender.send("height", height);
-        sender.send("lit", "1");
-        sender.send("on", "1");
+        sender.send("hue", hue, retain);
+        sender.send("sat", "100", retain);
+        sender.send("height", height, retain);
+        sender.send("lit", "1", retain);
+        sender.send("on", "1", retain);
 
         sleep_until_second(15);
     }
@@ -56,8 +61,8 @@ pub fn do_stuff(
         println!("{} end!", Local::now().format(TIMEFORMAT));
     }
 
-    sender.send("height", 0);
-    sender.send("lit", 0);
+    sender.send("height", 0, retain);
+    sender.send("lit", 0, retain);
 }
 
 fn sleep_until_second(modulo: u32) {

@@ -26,10 +26,10 @@ impl Sender {
     }
 
     #[allow(clippy::needless_pass_by_value)]
-    pub fn send<P: ToString>(&mut self, verb: &str, payload: P) {
+    pub fn send<P: ToString>(&mut self, verb: &str, payload: P, retain: bool) {
         let topic = format!("{}/set/{}", &self.base_topic, verb);
         self.client
-            .publish(topic, QoS::AtLeastOnce, false, payload.to_string())
+            .publish(topic, QoS::AtLeastOnce, retain, payload.to_string())
             .expect("failed to send via mqtt");
     }
 }

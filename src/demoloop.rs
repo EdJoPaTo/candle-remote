@@ -12,32 +12,37 @@ fn get_next_hue(last: f32) -> f32 {
     f32::round(next % 360.0)
 }
 
-pub fn do_stuff(sender: &mut Sender, burntime: u64) {
+pub fn do_stuff(sender: &mut Sender, burntime: u64, retain: bool) {
     let duration = Duration::from_millis(burntime);
     let mut hue = 0.0;
+
+    if retain {
+        sender.send("height-percentage", "", true);
+        sender.send("height", "", true);
+    }
 
     loop {
         hue = get_next_hue(hue);
 
         println!("new candle... hue: {}", hue);
 
-        sender.send("lit", "0");
-        sender.send("hue", hue);
-        sender.send("sat", "100");
-        sender.send("on", "1");
+        sender.send("lit", "0", retain);
+        sender.send("hue", hue, retain);
+        sender.send("sat", "100", retain);
+        sender.send("on", "1", retain);
         sleep(duration);
 
         for height in 0..=MAX_HEIGHT {
-            sender.send("height", height);
+            sender.send("height", height, false);
             sleep(INCREASE_HEIGHT_DURATION);
         }
 
         sleep(duration);
-        sender.send("lit", 1);
+        sender.send("lit", 1, retain);
         sleep(duration);
 
         for height in 1..=MAX_HEIGHT {
-            sender.send("height", MAX_HEIGHT - height);
+            sender.send("height", MAX_HEIGHT - height, false);
             sleep(duration);
         }
     }

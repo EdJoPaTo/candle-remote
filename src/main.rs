@@ -10,6 +10,8 @@ const MAX_HEIGHT: u8 = 32 - 5;
 fn main() {
     let matches = cli::build().get_matches();
 
+    let retain = matches.is_present("retain");
+
     let mut sender = {
         let host = matches
             .value_of("MQTT Server")
@@ -33,7 +35,7 @@ fn main() {
             .and_then(|s| s.parse::<u64>().ok())
             .expect("Burntime could not be read from command line");
 
-        demoloop::do_stuff(&mut sender, burntime);
+        demoloop::do_stuff(&mut sender, burntime, retain);
     } else if let Some(matches) = matches.subcommand_matches("meeting") {
         let verbose = matches.is_present("verbose");
 
@@ -59,7 +61,7 @@ fn main() {
         println!("Start: {}", start.to_string());
         println!("End:   {}", end.to_string());
 
-        meeting::do_stuff(&mut sender, &start, &end, verbose);
+        meeting::do_stuff(&mut sender, &start, &end, retain, verbose);
     } else {
         unimplemented!("Subcommand not implemented");
     }
