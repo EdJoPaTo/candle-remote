@@ -127,7 +127,7 @@ checksum = "631ae5198c9be5e753e5cc215e1bd73c2b466a3565173db433f52bb9d3e66dba"
 
 [[package]]
 name = "candle"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "chrono",
  "clap",
