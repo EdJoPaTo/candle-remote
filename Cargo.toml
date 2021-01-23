@@ -1,6 +1,6 @@
 [package]
 name = "candle"
-version = "0.3.0"
+version = "0.4.0"
 authors = ["EdJoPaTo <git-commit-with-a-funny-long-email-address-everyone-hates-as-it-is-too-long@edjopato.de>"]
 edition = "2018"
 
@@ -9,7 +9,7 @@ edition = "2018"
 [dependencies]
 chrono = "0.4"
 rand = "0.8"
-rumqttc = "0.4"
+rumqttc = "0.5"
 
 [dependencies.clap]
 version = "2"
