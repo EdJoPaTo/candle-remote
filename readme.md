@@ -65,10 +65,11 @@ USAGE:
     candle meeting [FLAGS] [OPTIONS] <STARTTIME> <ENDTIME>
 
 FLAGS:
-        --help       Prints help information
-    -r, --retain     send MQTT messages retained
-    -V, --version    Prints version information
-    -v, --verbose    Show each time tick on stdout
+    -b, --end-blink    Create a bright blinking at the end for 60 seconds
+        --help         Prints help information
+    -r, --retain       send MQTT messages retained
+    -V, --version      Prints version information
+    -v, --verbose      Show each time tick on stdout
 
 OPTIONS:
     -t, --base-topic <STRING>    MQTT Root Topic of the candle matrix to publish to

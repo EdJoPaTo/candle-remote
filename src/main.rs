@@ -44,6 +44,7 @@ fn main() {
 
         demoloop::do_stuff(&mut sender, burntime, retain);
     } else if let Some(matches) = matches.subcommand_matches("meeting") {
+        let end_blink = matches.is_present("end blink");
         let verbose = matches.is_present("verbose");
 
         let start = matches
@@ -68,7 +69,7 @@ fn main() {
         println!("Start: {}", start.to_string());
         println!("End:   {}", end.to_string());
 
-        meeting::do_stuff(&mut sender, &start, &end, retain, verbose);
+        meeting::do_stuff(&mut sender, &start, &end, end_blink, retain, verbose);
     } else {
         unimplemented!("Subcommand not implemented");
     }

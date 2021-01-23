@@ -1,6 +1,7 @@
 use chrono::{DateTime, Local, NaiveTime};
 use clap::{App, AppSettings, Arg, SubCommand};
 
+#[allow(clippy::too_many_lines)]
 pub fn build() -> App<'static, 'static> {
     App::new("Candle Remote")
         .version(env!("CARGO_PKG_VERSION"))
@@ -65,6 +66,12 @@ pub fn build() -> App<'static, 'static> {
                         .short("v")
                         .long("verbose")
                         .help("Show each time tick on stdout"),
+                )
+                .arg(
+                    Arg::with_name("end blink")
+                        .short("b")
+                        .long("end-blink")
+                        .help("Create a bright blinking at the end for 60 seconds"),
                 )
                 .arg(
                     Arg::with_name("starttime")

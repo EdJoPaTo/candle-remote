@@ -2,16 +2,19 @@ use crate::mqtt::Sender;
 use crate::MAX_HEIGHT;
 use chrono::{DateTime, Local, Timelike};
 use std::thread::sleep;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 mod math;
 
 pub const TIMEFORMAT: &str = "%_H:%M:%S";
+const END_BLINK_DURATION_SECONDS: u64 = 60;
+const END_BLINK_INTERVAL: Duration = Duration::from_millis(750);
 
 pub fn do_stuff(
     sender: &mut Sender,
     start: &DateTime<Local>,
     end: &DateTime<Local>,
+    end_blink: bool,
     retain: bool,
     verbose: bool,
 ) {
@@ -63,6 +66,43 @@ pub fn do_stuff(
 
     sender.send("height", 0, retain);
     sender.send("lit", 0, retain);
+    sender.send("hue", "0", retain);
+    sender.send("sat", "100", retain);
+
+    if end_blink {
+        let start = Instant::now();
+        loop {
+            let since_start = Instant::now().duration_since(start);
+            if since_start.as_secs() > END_BLINK_DURATION_SECONDS {
+                break;
+            }
+
+            #[allow(clippy::cast_precision_loss)]
+            let bri = math::interpolate(
+                5,
+                255,
+                since_start.as_secs_f64() / (END_BLINK_DURATION_SECONDS as f64),
+            );
+
+            if verbose {
+                println!(
+                    "{:5.1} / {:3} sec -> bri {:3}",
+                    since_start.as_secs_f64(),
+                    END_BLINK_DURATION_SECONDS,
+                    bri
+                );
+            }
+
+            sender.send("bri", bri, false);
+
+            sender.send("height", MAX_HEIGHT, false);
+            sleep(END_BLINK_INTERVAL);
+            sender.send("height", 0, retain);
+            sleep(END_BLINK_INTERVAL);
+        }
+
+        sender.send("bri", "5", false);
+    }
 }
 
 fn sleep_until_second(modulo: u32) {
