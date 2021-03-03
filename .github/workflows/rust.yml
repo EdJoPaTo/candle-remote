@@ -118,13 +118,13 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           cd target/${{ matrix.triple }}/release
-          tar -czvf ../../../candle-remote-${{ matrix.triple }}.tar.gz candle-remote
+          tar -czvf ../../../candle-remote-${{ matrix.triple }}.tar.gz candle
           cd -
       - name: Pack release (windows)
         if: runner.os == 'Windows'
         run: |
           cd target/${{ matrix.triple }}/release
-          7z a ../../../candle-remote-${{ matrix.triple }}.zip candle-remote.exe
+          7z a ../../../candle-remote-${{ matrix.triple }}.zip candle.exe
           cd -
 
       - name: Upload Artifact
